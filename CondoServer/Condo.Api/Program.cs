@@ -1,4 +1,5 @@
 using Condo.Api;
+using Microsoft.Azure.Cosmos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IPostService, PostService>();
+builder.Services.AddSingleton<CosmosClient>(_ =>
+    new CosmosClient(connectionString: builder.Configuration["COSMOS_DB_CONNECTION_STRING"]));
 
 var app = builder.Build();
 
