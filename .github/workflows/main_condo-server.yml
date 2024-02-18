@@ -22,10 +22,10 @@ jobs:
           dotnet-version: '6.x'
 
       - name: Build with dotnet
-        run: dotnet build CondoServer/ --configuration Release
+        run: dotnet build CondoServer/Condo.Api --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish CondoServer/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish CondoServer/Condo.Api -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
