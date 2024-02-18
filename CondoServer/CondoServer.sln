@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condo.Api", "Condo.Api\Condo.Api.csproj", "{1F9F3AC0-FC19-4C56-8591-AC586A21F2A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Condo.Api.Test", "Condo.Api.Test\Condo.Api.Test.csproj", "{B39AA035-5427-44A7-89C3-5EC5CC580636}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{1F9F3AC0-FC19-4C56-8591-AC586A21F2A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F9F3AC0-FC19-4C56-8591-AC586A21F2A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F9F3AC0-FC19-4C56-8591-AC586A21F2A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B39AA035-5427-44A7-89C3-5EC5CC580636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B39AA035-5427-44A7-89C3-5EC5CC580636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B39AA035-5427-44A7-89C3-5EC5CC580636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B39AA035-5427-44A7-89C3-5EC5CC580636}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
