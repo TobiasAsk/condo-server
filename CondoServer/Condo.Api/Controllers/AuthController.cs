@@ -84,17 +84,7 @@ public class AuthController : ControllerBase
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
 
-        var uriBuilder = new UriBuilder()
-        {
-            Host = HttpContext.Request.Host.Host,
-            Scheme = HttpContext.Request.Scheme
-        };
-        if (HttpContext.Request.Host.Port.HasValue)
-        {
-            uriBuilder.Port = (int)HttpContext.Request.Host.Port;
-        }
-        
-        return Redirect(uriBuilder.ToString());
+        return Redirect("https://yellow-pond-068504803.4.azurestaticapps.net");
     }
 
     [HttpGet("me")]
