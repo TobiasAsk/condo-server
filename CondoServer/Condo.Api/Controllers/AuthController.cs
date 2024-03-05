@@ -84,7 +84,13 @@ public class AuthController : ControllerBase
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
 
-        return Redirect("http://localhost:4200");
+        var uri = new UriBuilder()
+        {
+            Host = HttpContext.Request.Host.Host,
+            Port = (int)HttpContext.Request.Host.Port,
+            Scheme = HttpContext.Request.Scheme
+        }.ToString();
+        return Redirect(uri);
     }
 
     [HttpGet("me")]
