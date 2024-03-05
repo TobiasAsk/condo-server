@@ -23,7 +23,10 @@ builder.Services.AddSingleton<IPostService, PostService>();
 builder.Services.AddSingleton<CosmosClient>(_ =>
     new CosmosClient(connectionString: builder.Configuration["COSMOS_DB_CONNECTION_STRING"]));
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+});
 
 var app = builder.Build();
 
