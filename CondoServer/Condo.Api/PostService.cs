@@ -29,4 +29,13 @@ public class PostService : IPostService
 
         return posts;
     }
+
+    public async Task<Resident> GetResident(string userId)
+    {
+        var container = _cosmosClient.GetDatabase("Borettslag").GetContainer("Residents");
+        var resident = await container.ReadItemAsync<Resident>(
+            id: userId,
+            partitionKey: new PartitionKey(userId));
+        return resident.Resource;
+    }
 }

@@ -1,4 +1,5 @@
 using Condo.Api;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Azure.Cosmos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddSingleton<IPostService, PostService>();
 builder.Services.AddSingleton<CosmosClient>(_ =>
     new CosmosClient(connectionString: builder.Configuration["COSMOS_DB_CONNECTION_STRING"]));
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +27,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
