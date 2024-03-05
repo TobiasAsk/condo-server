@@ -84,13 +84,17 @@ public class AuthController : ControllerBase
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
 
-        var uri = new UriBuilder()
+        var uriBuilder = new UriBuilder()
         {
             Host = HttpContext.Request.Host.Host,
-            Port = (int)HttpContext.Request.Host.Port,
             Scheme = HttpContext.Request.Scheme
-        }.ToString();
-        return Redirect(uri);
+        };
+        if (HttpContext.Request.Host.Port.HasValue)
+        {
+            uriBuilder.Port = (int)HttpContext.Request.Host.Port;
+        }
+        
+        return Redirect(uriBuilder.ToString());
     }
 
     [HttpGet("me")]
