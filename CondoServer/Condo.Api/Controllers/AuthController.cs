@@ -84,7 +84,7 @@ public class AuthController : ControllerBase
             new ClaimsPrincipal(claimsIdentity),
             authProperties);
 
-        return Redirect("https://yellow-pond-068504803.4.azurestaticapps.net");
+        return Redirect(HttpContext.Request.Headers.Origin[0]);
     }
 
     [HttpGet("me")]

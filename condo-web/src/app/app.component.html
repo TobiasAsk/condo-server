@@ -1,0 +1,110 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+      <div *ngIf="userInfo; then userInfoSection else signInButtons"></div>
+      <ng-template #signInButtons>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button" href="/.auth/login/github">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Sign in with GitHub</span>
+            </a>
+            <div id="g_id_onload"
+              data-client_id="1066338210878-thlsn4rl3034tn93bpui6mmlqi9b0kvh.apps.googleusercontent.com"
+              data-context="signin" data-ux_mode="popup" data-login_uri="/auth/google-signin"
+              data-auto_prompt="false">
+            </div>
+
+            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+              data-text="signin_with" data-size="large" data-logo_alignment="left">
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #userInfoSection>
+        <div class="navbar-item">
+          <p>{{userInfo.userName}}</p>
+        </div>
+        <div class="image is-64x64 navbar-item">
+          <img src={{userInfo.picture}}>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</nav>
+
+<div *ngIf="userInfo; then myPage else landingPage"></div>
+<ng-template #myPage>
+  <section class="section">
+    <div class="columns">
+
+      <div class="column is-one-fifth">
+        <aside class="menu">
+          <ul class="menu-list">
+            <li>
+              <a routerLink="/dashboard" routerLinkActive="is-active">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-home"></i>
+                  </span>
+                  <span>Hjem</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/financials" routerLinkActive="is-active">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fa-regular fa-money-bill-1"></i>
+                  </span>
+                  <span>Økonomi</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/discussion" routerLinkActive="is-active">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fa-solid fa-martini-glass"></i>
+                  </span>
+                  <span>Diskusjon</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="column">
+        <h1 class="title has-text-centered">{{userInfo.condominium.name}}</h1>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </section>
+</ng-template>
+<ng-template #landingPage>
+  <section class="section">
+    <p>Welcome to Mitt Borettslag!</p>
+    <figure class="image">
+      <img src="https://saborettslag.blob.core.windows.net/images/narvestad.jpg">
+    </figure>
+  </section>
+</ng-template>

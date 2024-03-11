@@ -1,0 +1,6 @@
+{
+    "/auth/me": {
+        "target": "https://localhost:7127",
+        "secure": false
+    }
+}

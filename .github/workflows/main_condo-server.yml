@@ -27,6 +27,16 @@ jobs:
       - name: dotnet publish
         run: dotnet publish CondoServer/Condo.Api -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16
+        
+      - run: npm install
+        working-directory: condo-web
+        
+      - run: npm run build -- --output-path ${{env.DOTNET_ROOT}}/myapp/wwwroot
+        working-directory: condo-web
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
