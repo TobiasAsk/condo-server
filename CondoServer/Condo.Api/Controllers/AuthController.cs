@@ -42,6 +42,9 @@ public class AuthController : ControllerBase
             return Unauthorized();
         }
 
+        var userId = (string)validationResult.Claims["sub"];
+        var resident = await _postService.GetResident(userId);
+        
         var claims = new List<Claim>()
         {
             new Claim("iss", (string)validationResult.Claims["iss"]),
@@ -50,6 +53,7 @@ public class AuthController : ControllerBase
             new Claim("email", (string)validationResult.Claims["email"]),
             new Claim("name", (string)validationResult.Claims["name"]),
             new Claim("picture", (string)validationResult.Claims["picture"]),
+            new Claim("cid", resident!.Condominium!.Id!),
         };
 
         var claimsIdentity = new ClaimsIdentity(

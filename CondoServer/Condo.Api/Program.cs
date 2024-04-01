@@ -1,5 +1,6 @@
 using Condo.Api;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Azure.Cosmos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     options.Cookie.SameSite = SameSiteMode.None;
 });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ReadCondominiumPolicy", policy =>
+        policy.Requirements.Add(new CondominiumMembershipRequirement()));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, CondominiumAuthorizationHandler>();
 
 var app = builder.Build();
 
