@@ -1,8 +1,9 @@
 import { Resident } from "./resident";
+import { UserInfo } from "./userInfo";
 
 export interface Post {
     id: string;
-    author: Resident;
+    author: UserInfo;
     text: string;
     createdAt: Date;
 }

@@ -21,13 +21,13 @@
     <article class="media">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img class="is-rounded" src={{post.author.profilePictureUrl}}>
+          <img class="is-rounded" src={{post.author.picture}}>
         </p>
       </figure>
       <div class="media-content">
         <div class="content">
           <p>
-            <strong>{{post.author.name}}</strong> <small>{{post.createdAt | date}}</small>
+            <strong>{{post.author.userName}}</strong> <small>{{post.createdAt | date}}</small>
             <br>
             {{post.text}}
           </p>

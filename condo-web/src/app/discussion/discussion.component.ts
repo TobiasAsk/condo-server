@@ -17,14 +17,14 @@ export class DiscussionComponent implements OnInit {
     id: '2',
     author: {
       id: '',
-      name: '',
-      profilePictureUrl: '',
+      userName: '',
+      picture: '',
       condominium: {
         name: 'f',
         id: ''
       }
     },
-    text: '',
+    text: 'f',
     createdAt: new Date("2020-01-01"),
   }
 

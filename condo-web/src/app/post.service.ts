@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { CreatePostResponse, Post, PostResponse } from './post';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
+import { CONDOMINIUM_ID } from './user.condominium';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
 
@@ -55,7 +56,13 @@ export class PostService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private httpClient: HttpClient) { }
+  private condominiumId: string;
+
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(CONDOMINIUM_ID) condominiumId: string) {
+    this.condominiumId = condominiumId;
+  }
 
   createPost(post: Post): Observable<CreatePostResponse> {
     const variables = {
@@ -70,17 +77,7 @@ export class PostService {
       this.gqlEndpointRelativeUrl, requestBody, this.httpOptions);
   }
 
-  getPosts(endCursor?: string): Observable<Post[]> {
-    const variables = {
-      endCursor
-    };
-    const requestBody = {
-      query: endCursor ? this.getPostsAfterQuery : this.getPostsQuery,
-      variables
-    }
-
-    return this.httpClient.post<PostResponse>(
-      this.gqlEndpointRelativeUrl, requestBody, this.httpOptions)
-      .pipe(map((d) => d.data.posts.items));
+  getPosts(): Observable<Post[]> {
+    return this.httpClient.get<Post[]>(`/condominiums/${this.condominiumId}/posts`);
   }
 }
