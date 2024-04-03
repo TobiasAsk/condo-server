@@ -3,7 +3,7 @@ import { UserInfo } from "./userInfo";
 
 export interface Post {
     id: string;
-    author: UserInfo;
+    author: Resident;
     text: string;
     createdAt: Date;
 }
@@ -13,5 +13,4 @@ export interface PostResponse {
 }
 
 export interface CreatePostResponse {
-    data: { createPost: Post };
 }

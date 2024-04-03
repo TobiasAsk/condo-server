@@ -27,7 +27,7 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong>{{post.author.userName}}</strong> <small>{{post.createdAt | date}}</small>
+            <strong>{{post.author.name}}</strong> <small>{{post.createdAt | date : 'medium'}}</small>
             <br>
             {{post.text}}
           </p>

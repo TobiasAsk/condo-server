@@ -38,4 +38,14 @@ public class PostService : IPostService
             partitionKey: new PartitionKey(userId));
         return resident.Resource;
     }
+
+    public async Task<Post> CreatePost(Post post)
+    {
+        var container = _cosmosClient.GetDatabase("Borettslag").GetContainer("Posts");
+        var itemResponse = await container.CreateItemAsync<Post>(post, requestOptions: new ItemRequestOptions
+        {
+            
+        });
+        return itemResponse.Resource;
+    }
 }

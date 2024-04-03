@@ -9,14 +9,14 @@ import { UserInfo } from './userInfo';
 })
 export class ResidentService {
 
-  resident!: UserInfo;
+  resident!: Resident;
 
   constructor(private httpClient: HttpClient) { }
 
-  getResident(): UserInfo {
+  getResident(): Resident {
     if (!this.resident) {
       const route = '/auth/me';
-      this.httpClient.get<UserInfo>(route)
+      this.httpClient.get<Resident>(route)
         .subscribe(r => this.resident = r);
     }
     return this.resident;

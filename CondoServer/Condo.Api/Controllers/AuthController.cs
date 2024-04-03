@@ -99,14 +99,14 @@ public class AuthController : ControllerBase
             return Ok();
         }
 
-        var userName = HttpContext.User.Claims.First(c => c.Type == "name").Value;
+        var name = HttpContext.User.Claims.First(c => c.Type == "name").Value;
         var picture = HttpContext.User.Claims.First(c => c.Type == "picture").Value;
         var userId = HttpContext.User.Claims.First(c => c.Type == "sub").Value;
         var resident = await _postService.GetResident(userId);
         
         var user = new
         {
-            userName,
+            name,
             picture,
             condominium = resident.Condominium
         };

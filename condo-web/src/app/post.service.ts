@@ -9,53 +9,6 @@ import { CONDOMINIUM_ID } from './user.condominium';
 })
 export class PostService {
 
-  private gqlEndpointRelativeUrl = '/data-api/graphql';
-  private getPostsAfterQuery = `query GetPosts($endCursor: String) {
-    posts(first: 3, after: $endCursor) {
-        items {
-            id
-            text
-            author {
-              id
-              name
-              profilePictureUrl
-            }
-        }
-        hasNextPage
-        endCursor
-    }
-  }`;
-  private getPostsQuery = `query GetPosts {
-    posts(first: 10) {
-        items {
-            id
-            text
-            author {
-              id
-              name
-              profilePictureUrl
-              condominium {
-                id
-                name
-              }
-            }
-            createdAt
-        }
-        hasNextPage
-        endCursor
-    }
-  }`;
-
-  private createPostMutation = `mutation CreatePost($post: CreatePostInput!) {
-    createPost(item: $post) {
-        id
-    }
-  }`;
-
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   private condominiumId: string;
 
   constructor(
@@ -65,16 +18,8 @@ export class PostService {
   }
 
   createPost(post: Post): Observable<CreatePostResponse> {
-    const variables = {
-      post
-    };
-    const requestBody = {
-      query: this.createPostMutation,
-      variables
-    }
-
     return this.httpClient.post<CreatePostResponse>(
-      this.gqlEndpointRelativeUrl, requestBody, this.httpOptions);
+      `/condominiums/${this.condominiumId}/posts`, post);
   }
 
   getPosts(): Observable<Post[]> {

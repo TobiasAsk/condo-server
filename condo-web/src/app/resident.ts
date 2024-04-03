@@ -3,7 +3,7 @@ import { Condominium } from "./condominium";
 export interface Resident {
     id: string;
     name: string;
-    profilePictureUrl: string;
+    picture: string;
     condominium: Condominium;
 }
 

@@ -17,7 +17,7 @@ export class DiscussionComponent implements OnInit {
     id: '2',
     author: {
       id: '',
-      userName: '',
+      name: '',
       picture: '',
       condominium: {
         name: 'f',

@@ -13,7 +13,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IPostService, PostService>();
 builder.Services.AddSingleton<CosmosClient>(_ =>
-    new CosmosClient(connectionString: builder.Configuration["COSMOS_DB_CONNECTION_STRING"]));
+    new CosmosClient(connectionString: builder.Configuration["COSMOS_DB_CONNECTION_STRING"], new CosmosClientOptions
+    {
+        SerializerOptions = new CosmosSerializationOptions
+        {
+            PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+        }
+    }));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Condo.Api.Controllers;
@@ -17,6 +18,7 @@ public class CondominiumsController : ControllerBase
     }
 
     [Route("{condominiumId}/posts")]
+    [HttpGet]
     public async Task<IActionResult> GetPosts([FromRoute] string condominiumId)
     {
         var authorizationResult = await _authorizationService.AuthorizeAsync(
@@ -29,6 +31,30 @@ public class CondominiumsController : ControllerBase
             return Ok(await _postService.GetPosts(condominiumId));
         }
 
+        if (HttpContext.User.Identity!.IsAuthenticated)
+        {
+            return new ForbidResult();
+        }
+
+        return new ChallengeResult();
+    }
+
+    [Route("{condominiumId}/posts")]
+    [HttpPost]
+    public async Task<IActionResult> CreatePost([FromRoute] string condominiumId, [FromBody] Post post)
+    {
+        var authorizationResult = await _authorizationService.AuthorizeAsync(
+            user: HttpContext.User,
+            resource: condominiumId,
+            policyName: "ReadCondominiumPolicy");
+
+        if (authorizationResult.Succeeded)
+        {
+            await _postService.CreatePost(post);
+            var url = $"{HttpContext.Request.GetEncodedUrl()}/{post.Id}";
+            return Created(url, null);
+        }
+        
         if (HttpContext.User.Identity!.IsAuthenticated)
         {
             return new ForbidResult();
